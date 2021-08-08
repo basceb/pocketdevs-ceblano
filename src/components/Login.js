@@ -19,9 +19,13 @@ const LoginForm = () => {
     e.target.reset();
   };
 
+  function redirectUser(){
+    //window.location.href = ("http://localhost:3000/users");
+  }
+
   useEffect(() => {
       if(code.number === 1){
-        //Redirect Here Probably
+        redirectUser();
       }    
   }, [code, isAuth])
 
