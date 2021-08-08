@@ -1,25 +1,30 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect}  from 'react';
 import { AppContext } from '../Context';
 import './CompStyle.css'
 import formVideo from '../media/video_1.mp4'
 import schoolLogo from '../etherion.png'
 
 const LoginForm = () => {
-  const { loginUser, code } = useContext(AppContext);
+  const { loginUser, code, isAuth} = useContext(AppContext);
   const [newUser, setNewUser] = useState({});
-  
-
   const addNewUser = (e, field) => {
     setNewUser({
       ...newUser, [field]: e.target.value
     }); 
   };
 
-  const submitUser = (e) => {
+  const submitUser = async (e) => {
     e.preventDefault();
-    loginUser(newUser)
+    loginUser(newUser);
     e.target.reset();
   };
+
+  useEffect(() => {
+      if(code.number === 1){
+        //Redirect Here Probably
+      }    
+  }, [code, isAuth])
+
   //Comment here
   return (
     <div className="flex-container">

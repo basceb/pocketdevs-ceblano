@@ -2,17 +2,12 @@ import { useState } from "react";
 
 export const Actions = () => {
   let [users, setUsers] = useState([]);
-    //userLength is for showing the Data Loading message.
   let [userLength, setUserLength] = useState(null);
+  const [isAuth, userHasAuth] = useState(false);
   var [code, setCode] = useState({
     number: null,
     message: ""
   });
-
-  function functionLogin() {
-    //create session
-    //transfer to logged in state
-  }
 
   const insertUser = (newUser) => {
     fetch("http://localhost/php-react/insert-user.php", {
@@ -38,13 +33,16 @@ export const Actions = () => {
             ...users,
           ]);
           setUserLength(true);
-          functionLogin();
         }
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const logoutUser = () => {
+    userHasAuth(false);
+  }
 
   const loginUser = (newUser) => {
     fetch("http://localhost/php-react/login-user.php", {
@@ -58,12 +56,10 @@ export const Actions = () => {
         return res.json();
       })
       .then((data) => {
-        console.log("inside fetch");
         setCode({code, number: data.code});  
-        setCode({code, message: data.msg});  
-        console.log("CODE:" + data.msg);
-        if (data.success === 1) {     
-          functionLogin();       
+        setCode({code, message: data.msg})
+        if(data.code === 1){
+          userHasAuth(true);
         }
       })
       .catch((err) => {
@@ -76,6 +72,8 @@ export const Actions = () => {
     insertUser,
     userLength,
     loginUser,
-    code
+    code, 
+    isAuth,
+    logoutUser
   };
 };

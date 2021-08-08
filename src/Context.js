@@ -1,3 +1,4 @@
 import React from "react";
-export const AppContext = React.createContext();
+//For PHP 
+export const AppContext = React.createContext(); // API to create a context
 export const Provider = AppContext.Provider;
