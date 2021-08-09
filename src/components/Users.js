@@ -1,6 +1,7 @@
 import React from 'react'
 import '../App.css'
 
-export default function Users(){
-    return <h1 className="users">USERS</h1>
+function Users(){
+    return (<h1 className="users">USERS</h1>)
 }
+export default Users;

@@ -1,12 +1,14 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import { Button } from '../pages/Button'
 import './Navbar.css';
 import schoolLogo from '../etherion.png'
 import { AppContext } from '../Context';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Navbar() {
-    const {isAuth, logoutUser} = useContext(AppContext);
+    const history = useHistory();
+    const {isAuth, username, userHasAuth} = useContext(AppContext);
     const [click, setClick] = useState(false); //Initial value to pause
     const [button, setButton] = useState(true);
     const handleClick = () => setClick(!click);
@@ -15,7 +17,8 @@ function Navbar() {
     };
 
     const closeMobileMenuLogout = () => {
-        logoutUser();
+        userHasAuth(false);
+        history.push("/login");
         setClick(false);
     };
 
@@ -92,6 +95,9 @@ function Navbar() {
                         </Link>
                         </li>  
                         {/* LOGOUT BUTTON */}
+                        <li className='nav-item'> 
+                            {username}
+                        </li>
                         <li className="nav-item">
                             <Link to="/login" onClick={closeMobileMenuLogout}>
                                 {button && <Button buttonSize="btn--medium" buttonStyle='btn--outline'>Logout</Button>}
@@ -132,4 +138,4 @@ function Navbar() {
     )
 }
 
-export default Navbar
+export default withRouter(Navbar)

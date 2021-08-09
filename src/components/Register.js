@@ -1,10 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../Context';
 import formVideo from '../media/video_1.mp4'
 import schoolLogo from '../etherion.png'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Form = () => {
-  const {insertUser, code} = useContext(AppContext);
+  const history = useHistory();
+  const {insertUser, code, resetState} = useContext(AppContext);
   const [error, setError] = useState({
     username_error: "",
     password_error: "",
@@ -48,7 +50,7 @@ const Form = () => {
           if((e.target.value).match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)){
             isValid = true;
           } else {
-            errorMessage = "Must have at least 1 lowercase, 1 uppercase, and 1 number";
+            errorMessage = "Must have at least 1 lowercase, 1 uppercase, 1 number and minimum 8 characters";
           }
         }
         setError({
@@ -92,8 +94,14 @@ const Form = () => {
     e.target.reset();  
   };
 
+  useEffect(() => {
+    if(code.number === 1){
+      history.push("/users");
+    }    
+  }, [code, history])
+
   return (  
-    <div className="flex-container">
+    <div className="flex-container" onLoad={resetState}>
       <div className="design-container">
         <video controls autoPlay loop muted>
           <source src={formVideo} type="video/mp4"></source>

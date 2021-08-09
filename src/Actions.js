@@ -4,10 +4,16 @@ export const Actions = () => {
   let [users, setUsers] = useState([]);
   let [userLength, setUserLength] = useState(null);
   const [isAuth, userHasAuth] = useState(false);
+  const [username, setUsername] = useState("");
   var [code, setCode] = useState({
     number: null,
     message: ""
   });
+
+  const resetState = () => {
+    setCode({code, number: null});  
+    setCode({code, message: ""});  
+  }
 
   const insertUser = (newUser) => {
     fetch("http://localhost/php-react/insert-user.php", {
@@ -33,6 +39,8 @@ export const Actions = () => {
             ...users,
           ]);
           setUserLength(true);
+          userHasAuth(true);
+          setUsername(data.user);
         }
       })
       .catch((err) => {
@@ -40,10 +48,7 @@ export const Actions = () => {
       });
   };
 
-  const logoutUser = () => {
-    userHasAuth(false);
-  }
-
+ 
   const loginUser = (newUser) => {
     fetch("http://localhost/php-react/login-user.php", {
       method: "POST",
@@ -51,7 +56,7 @@ export const Actions = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newUser),
-    })
+    }) 
       .then((res) => {
         return res.json();
       })
@@ -60,6 +65,7 @@ export const Actions = () => {
         setCode({code, message: data.msg})
         if(data.code === 1){
           userHasAuth(true);
+          setUsername(data.user);
         }
       })
       .catch((err) => {
@@ -74,6 +80,8 @@ export const Actions = () => {
     loginUser,
     code, 
     isAuth,
-    logoutUser
+    resetState,
+    username,
+    userHasAuth
   };
 };

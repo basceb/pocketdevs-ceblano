@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Navbar from './pages/Navbar';
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
@@ -14,7 +14,6 @@ import Users from "./components/Users";
 import {Actions} from "./Actions";
 import {Provider} from "./Context";
 function App() {
-
   const data = Actions();
   return (
       <Router>
