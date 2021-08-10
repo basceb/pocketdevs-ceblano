@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Navbar() {
     const history = useHistory();
-    const {isAuth, username, userHasAuth} = useContext(AppContext);
+    const {isAuth, userHasAuth, username, setUsername} = useContext(AppContext);
     const [click, setClick] = useState(false); //Initial value to pause
     const [button, setButton] = useState(true);
     const handleClick = () => setClick(!click);
@@ -18,6 +18,8 @@ function Navbar() {
 
     const closeMobileMenuLogout = () => {
         userHasAuth(false);
+        localStorage.removeItem('user');
+        localStorage.setItem('isAuth', false);
         history.push("/login");
         setClick(false);
     };
@@ -30,6 +32,15 @@ function Navbar() {
         }
     };
 
+    function checkAuth(){
+        //Data Persists
+        if(localStorage.getItem("isAuth") && localStorage.getItem("user") != null){
+            userHasAuth(true);
+            //Set the username here
+            setUsername(localStorage.getItem("user"));
+        } 
+    }
+
     useEffect(() => {
         showButton();
     }, []);
@@ -38,7 +49,7 @@ function Navbar() {
 
     return (
         <>
-        <nav className="navbar">
+        <nav className="navbar" onLoad={checkAuth}>
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
                 <img src={schoolLogo} alt="Icon"/>
@@ -95,7 +106,7 @@ function Navbar() {
                         </Link>
                         </li>  
                         {/* LOGOUT BUTTON */}
-                        <li className='nav-item'> 
+                        <li className='nav-links'> 
                             {username}
                         </li>
                         <li className="nav-item">

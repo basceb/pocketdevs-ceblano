@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect}  from 'react';
 import { AppContext } from '../Context';
-import {Link} from 'react-router-dom'
 import './CompStyle.css'
 import formVideo from '../media/video_1.mp4'
 import schoolLogo from '../etherion.png'
@@ -8,7 +7,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const LoginForm = () => {
   const history = useHistory();
-  const { loginUser, code, isAuth, resetState} = useContext(AppContext);
+  const { loginUser, code, resetState} = useContext(AppContext);
   const [newUser, setNewUser] = useState({});
   const addNewUser = (e, field) => {
     setNewUser({
@@ -26,7 +25,7 @@ const LoginForm = () => {
       if(code.number === 1){
         history.push("/users");
       }    
-  }, [code, isAuth, history])
+  }, [code, history])
 
   //Comment here
   return ( 

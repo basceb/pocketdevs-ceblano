@@ -15,6 +15,7 @@ export const Actions = () => {
     setCode({code, message: ""});  
   }
 
+//REGISTER
   const insertUser = (newUser) => {
     fetch("http://localhost/php-react/insert-user.php", {
       method: "POST",
@@ -39,8 +40,11 @@ export const Actions = () => {
             ...users,
           ]);
           setUserLength(true);
-          userHasAuth(true);
+          userHasAuth(true)
           setUsername(data.user);
+          //Set in the localStorage with the key of the user
+          localStorage.setItem('user', data.user);
+          localStorage.setItem('isAuth', true);
         }
       })
       .catch((err) => {
@@ -48,7 +52,7 @@ export const Actions = () => {
       });
   };
 
- 
+ //LOGIN
   const loginUser = (newUser) => {
     fetch("http://localhost/php-react/login-user.php", {
       method: "POST",
@@ -66,6 +70,9 @@ export const Actions = () => {
         if(data.code === 1){
           userHasAuth(true);
           setUsername(data.user);
+          //Set in the localStorage with the key of the user
+          localStorage.setItem('user', data.user);
+          localStorage.setItem('isAuth', true);
         }
       })
       .catch((err) => {
@@ -80,8 +87,9 @@ export const Actions = () => {
     loginUser,
     code, 
     isAuth,
+    userHasAuth,
     resetState,
     username,
-    userHasAuth
+    setUsername
   };
 };

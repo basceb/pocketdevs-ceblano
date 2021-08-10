@@ -13,6 +13,7 @@ import Register from "./components/Register";
 import Users from "./components/Users";
 import {Actions} from "./Actions";
 import {Provider} from "./Context";
+
 function App() {
   const data = Actions();
   return (

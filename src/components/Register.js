@@ -89,8 +89,9 @@ const Form = () => {
 
   const submitUser = (e) => {
     e.preventDefault();
-    //Check if the user is taken
-    insertUser(newUser);
+    if(newUser.password === newUser.confirm_password){
+      insertUser(newUser);
+    }
     e.target.reset();  
   };
 
