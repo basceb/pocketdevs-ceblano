@@ -97,9 +97,10 @@ const Form = () => {
 
   useEffect(() => {
     if(code.number === 1){
+      resetState();
       history.push("/users");
     }    
-  }, [code, history])
+  }, [code, history, resetState])
 
   return (  
     <div className="flex-container" onLoad={resetState}>

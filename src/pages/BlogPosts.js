@@ -1,10 +1,9 @@
-import React, {useContext} from 'react'
-import { AppContext } from '../Context';
+import React from 'react'
 import './Cards.css'
 
 function BlogPosts() {
     //Loads all the blog from the dataase
-    const {username, code} = useContext(AppContext);
+    //const {username, code} = useContext(AppContext);
     return (
         <div className="cards">
                 <div className="mission">

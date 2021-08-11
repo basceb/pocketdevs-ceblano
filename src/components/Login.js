@@ -23,9 +23,10 @@ const LoginForm = () => {
 
   useEffect(() => {
       if(code.number === 1){
+        resetState();
         history.push("/users");
       }    
-  }, [code, history])
+  }, [code, history, resetState])
 
   //Comment here
   return ( 

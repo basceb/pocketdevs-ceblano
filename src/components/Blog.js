@@ -3,35 +3,36 @@ import { AppContext } from '../Context';
 import '../App.css'
 import './CompStyle.css'
 import '../pages/HeroSection.css';
+import homeVideo from "../media/video_2.mp4"
 
 export default function Blog() {
-    const {username, insertBlog} = useContext(AppContext)
+    const {username, insertBlog, code, resetState} = useContext(AppContext)
     const [entry, setEntry] = useState({});
-
+    entry.username = username;
     const blogEntry = (e, field) => {
         setEntry({
             ...entry, [field]: e.target.value
-        });
+        })
     };
 
     const submitBlogPost = (e) => {
-        //Set the username
-        setEntry({
-            entry, "username": username
-        });
         //Insert blog entry here
+        insertBlog(entry)
         e.preventDefault();
         e.target.reset();
     };
 
     return (
-        <div className="blogs-container">
-            <div className="container">
+        <div className="blogs-container" onLoad={resetState}>
+            <video controls autoPlay loop muted> 
+                    <source src={homeVideo} type="video/mp4"></source>
+                </video>
+            <div className="container blog-container">
                 <div className="card"></div>
                 <div className="card">
-                    <div className="error-container">
+                    <div className="error-container" onLoad={resetState}>
                         {/* Conditional rendering */}
-                        <span>Logged in: {username}</span>
+                        <span>{code.message}</span>
                     </div>  
                     <h1 className="title">Blog</h1>
                     <form className="writeForm" onSubmit={submitBlogPost}>
@@ -46,14 +47,14 @@ export default function Blog() {
                             <div className="bar"></div>
                         </div>
                         <div className="input-container">
-                            <input type="#{type}"
+                            <p className="content-p"> Blog Content </p>
+                            <textarea type="#{type}"
                                 id="_name"
                                 autoComplete="off"
                                 onChange={(e) => blogEntry(e, "blog_content")}
                                 required
-                            />
-                            <label htmlFor="_title">What do you want to write?</label>
-                            <div className="bar"></div>
+                                className="textarea-content"
+                            />     
                         </div>
                         <div className="button-container">
                             <button type="submit" value="insert"><span>Submit Blog</span></button>

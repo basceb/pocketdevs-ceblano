@@ -13,6 +13,7 @@ export const Actions = () => {
   const resetState = () => {
     setCode({code, number: null});  
     setCode({code, message: ""});  
+    console.log("Reset State");
   }
 
 //REGISTER
@@ -80,6 +81,39 @@ export const Actions = () => {
       });
   };
 
+let [blogs, setBlogs] = useState([]);
+//INSERT BLOG
+const insertBlog = (entry) => {
+  fetch("http://localhost/php-react/insert-blog.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(entry),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {      
+      setCode({code, number: data.code}); 
+      console.log(data.msg); 
+      setCode({code, message: data.msg});  
+      if (data.success === 1) {                     
+        setBlogs([
+          {
+            id: data.id,
+            ...entry,
+          },
+          ...blogs,
+        ]);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+
   return {
     users,
     insertUser,
@@ -90,6 +124,7 @@ export const Actions = () => {
     userHasAuth,
     resetState,
     username,
-    setUsername
+    setUsername,
+    insertBlog
   };
 };

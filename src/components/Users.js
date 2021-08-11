@@ -4,15 +4,15 @@ import BlogPosts from '../pages/BlogPosts';
 import '../pages/HeroSection.css';
 import Blog from './Blog'
 import {Actions} from '../Actions'
-import {BlogActions} from '../BlogActions'
+import Footer from '../pages/Footer'
 
 function Users() {
   const data = Actions();
-  const blogData = BlogActions();
   return (
-    <>
-      <BlogPosts value={data}/>
-      <Blog value={{data, blogData}}/>
+    <>  
+        <BlogPosts/>
+        <Blog value={data}/>
+        <Footer/>
     </>
   );
 }

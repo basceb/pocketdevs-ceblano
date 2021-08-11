@@ -2,7 +2,6 @@ import { useState } from "react";
 
 export const BlogActions = () => {
   let [blogs, setBlogs] = useState([]);
-
   //For the database results
   var [code, setCode] = useState({
     number: null,
@@ -14,14 +13,13 @@ export const BlogActions = () => {
     setCode({code, message: ""});  
   }
 
-//REGISTER
-  const insertBlog = (blogEntry) => {
+  const insertBlog = (entry) => {
     fetch("http://localhost/php-react/insert-blog.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(blogEntry),
+      body: JSON.stringify(entry),
     })
       .then((res) => {
         return res.json();
@@ -34,11 +32,12 @@ export const BlogActions = () => {
           setBlogs([
             {
               id: data.id,
-              ...blogEntry,
+              ...entry,
             },
             ...blogs,
           ]);
         }
+        alert(data.msg);
       })
       .catch((err) => {
         console.log(err);
@@ -48,6 +47,6 @@ export const BlogActions = () => {
 
   return {
     insertBlog, 
-    resetState
+    resetState,
   };
 };

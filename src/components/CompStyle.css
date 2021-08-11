@@ -2,6 +2,15 @@
     display: flex;
 }
 
+video{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  filter: brightness(50%);
+}
+
 .design-container{
     height: 100vh;
     width: 55%;
@@ -50,7 +59,13 @@
     position: relative;
     max-width: 460px;
     width: 100%;
-    margin: 5% auto 100px;
+    padding: 50px 0 10px 0;
+    margin: 0 auto 0;
+    opacity: 90%;
+  }
+
+  .blog-container{
+    max-width: 1000px;
   }
   .container.active .card:first-child {
     background: #f2f2f2;
@@ -103,6 +118,33 @@
   }
   .container.active .card.alt .button-container {
     transition-delay: 0.7s;
+  }
+
+  .textarea-content{
+    font-size: 20px;
+    width: 100%;
+    height: 300px;
+    padding: 20px;
+    resize: none;
+  }
+
+  .textarea-content:focus{
+    border-radius: 0.5%;
+    box-shadow: 5px 0 5px 0 #611F84;
+    transition: 0.3s ease;
+  }
+
+  .content-p{
+    outline: none;
+    z-index: 1;
+    position: relative;
+    background: none;
+    width: 100%;
+    height: 30px;
+    border: 0;
+    color: #212121;
+    font-size: 20px;
+    font-weight: 400;
   }
   
   /* Card */
