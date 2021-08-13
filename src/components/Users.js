@@ -13,8 +13,7 @@ function Users() {
     <>  
         <BlogPosts value={data}/>
         <Blog value={data}/>
-        <Footer/>
-        
+        <Footer/>  
     </>
   );
 }

@@ -13,11 +13,14 @@ import Register from "./components/Register";
 import Users from "./components/Users";
 import {Actions} from "./Actions";
 import {Provider} from "./Context";
+import 'react-notifications-component/dist/theme.css'
+import ReactNotification from 'react-notifications-component'
 
 function App() {
   const data = Actions();
   return (
       <Router>
+        <ReactNotification/>
         <Provider value={data}> {/*Make the authentication accessible for all children*/}
         <Navbar />
         <Switch>         

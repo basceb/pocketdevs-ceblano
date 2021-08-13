@@ -28,8 +28,8 @@ const BlogPosts = () => {
     });
   };
 
-  const enableEdit = (id, blog_title, blog_content) => {
-    setNewData({ id, blog_title, blog_content });
+  const enableEdit = (id, username, blog_title, blog_content) => {
+    setNewData({ id, username, blog_title, blog_content });
     editMode(id);
   };
 
@@ -94,26 +94,26 @@ const BlogPosts = () => {
                 </td>
               </tr>
             ) : (
-              <tr key={id}>
-                <td className="title-data">{blog_title}</td>
-                <td>Posted By: {username}</td>
-                <td className="content-data content-paragraph">{blog_content}</td>
-                {(localStorage.getItem("user") === username) ? 
-                  <td className="button-data">
-                    <button
-                      className="btn-blog"
-                      onClick={() => enableEdit(id, username, blog_title, blog_content)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn-blog"
-                      onClick={() => deleteConfirm(id)}
-                    >
-                      Delete
-                    </button>
-                  </td>: <></>}
-              </tr>
+                <tr key={id}>
+                  <td className="title-data">{blog_title}</td>
+                  <td>Posted By: {username}</td>
+                  <td className="content-data content-paragraph">{blog_content}</td>
+                  {(localStorage.getItem("user") === username) ? 
+                    <td className="button-data">
+                      <button
+                        className="btn-blog"
+                        onClick={() => enableEdit(id, username, blog_title, blog_content)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn-blog"
+                        onClick={() => deleteConfirm(id)}
+                      >
+                        Delete
+                      </button>
+                    </td>: <></>}
+                </tr>
             );
           })}
         </tbody>

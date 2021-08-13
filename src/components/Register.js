@@ -115,12 +115,6 @@ const Form = () => {
       <div className="container">
         <div className="card"></div>
         <div className="card">
-              <div className="error-container">
-                {/* Conditional rendering */}
-                <span>
-                  {code.message}
-                </span>
-              </div>  
           <h1 className="title">Register</h1>
           <form className="regForm" onSubmit={submitUser}>
             <div className="input-container">

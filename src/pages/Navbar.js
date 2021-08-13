@@ -5,6 +5,7 @@ import './Navbar.css';
 import schoolLogo from '../etherion.png'
 import { AppContext } from '../Context';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { store } from 'react-notifications-component'
 
 function Navbar() {
     const history = useHistory();
@@ -17,6 +18,21 @@ function Navbar() {
     };
 
     const closeMobileMenuLogout = () => {
+        //Logout Notification
+        store.addNotification({
+            title: "You Logged Out",
+            message: "  ",
+            type: "info",
+            insert: "bottom",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 1000,
+              onScreen: false
+            }
+          });
+
         userHasAuth(false);
         localStorage.removeItem('user');
         localStorage.setItem('isAuth', false);
@@ -107,7 +123,7 @@ function Navbar() {
                         </li>  
                         {/* LOGOUT BUTTON */}
                         <li className='nav-links'> 
-                            {username}
+                                {username}
                         </li>
                         <li className="nav-item">
                             <Link to="/login" onClick={closeMobileMenuLogout}>

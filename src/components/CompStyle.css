@@ -34,11 +34,14 @@ thead{
   width: 100%;
 } 
 
+.tr{
+  padding-bottom: 100px;
+}
+
 .button-data{
   display: flow-root;
   margin: auto;
 }
-
 
 .title-data{
   font-weight: bold;
@@ -68,7 +71,7 @@ thead{
 .btn-blog{
   background-color: #611F84; /* Green */
   border: solid 2px #ffffff;
-  border-radius: 20px;
+  border-radius: 10px;
   color: white;
   padding: 15px 32px;
   margin-left: auto;
@@ -79,8 +82,17 @@ thead{
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 18px;
+  font-family: sans-serif;
+  transition: all 0.5s ease;
 }
+
+.btn-blog:hover{
+  background-color: white;
+  color: #611F84;
+  transition: all 0.5s ease;
+}
+
 
 .design-container{
     height: 100vh;

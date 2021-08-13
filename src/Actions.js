@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { store } from 'react-notifications-component'
 
 export const Actions = () => {
   let [users, setUsers] = useState([]);
@@ -46,6 +47,32 @@ export const Actions = () => {
           //Set in the localStorage with the key of the user
           localStorage.setItem('user', data.user);
           localStorage.setItem('isAuth', true);
+          store.addNotification({
+            title: "You are now registered",
+            message: data.msg,
+            type: "success",
+            insert: "bottom",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 800,
+              onScreen: false
+            }
+          });
+        } else {
+          store.addNotification({
+            message: data.msg,
+            type: "warning",
+            insert: "top",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+          });
         }
       })
       .catch((err) => {
@@ -68,12 +95,42 @@ export const Actions = () => {
       .then((data) => {
         setCode({ code, number: data.code });
         setCode({ code, message: data.msg })
+        //LOGIN SUCCESS
         if (data.code === 1) {
           userHasAuth(true);
           setUsername(data.user);
-          //Set in the localStorage with the key of the user
           localStorage.setItem('user', data.user);
           localStorage.setItem('isAuth', true);
+          //Success Notif
+          store.addNotification({
+            title: "Login Success",
+            message: data.msg,
+            type: "success",
+            insert: "top",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 800,
+              onScreen: false
+            }
+          });
+        } else {
+          //LOGIN FAILED
+          //Fail Notif
+          store.addNotification({
+            title: "Login Fail",
+            message: data.msg,
+            type: "danger",
+            insert: "top",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+          });
         }
       })
       .catch((err) => {
@@ -130,6 +187,33 @@ export const Actions = () => {
             ...blogs,
           ]);
           setBlogLength(true);
+          store.addNotification({
+            title: "",
+            message: data.msg,
+            type: "info",
+            insert: "bottom",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: true
+            }
+          });
+        } else {
+          store.addNotification({
+            title: "",
+            message: data.msg,
+            type: "warning",
+            insert: "bottom",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: true
+            }
+          });
         }
       })
       .catch((err) => {
@@ -187,8 +271,33 @@ export const Actions = () => {
             return blog;
           });
           setBlogs(blogs);
+          store.addNotification({
+            title: "Edit Blog Success",
+            message: data.msg,
+            type: "success",
+            insert: "bottom",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: false
+            }
+          });
         } else {
-          alert(data.msg);
+          store.addNotification({
+            title: "Edit Blog Failed",
+            message: data.msg,
+            type: "warning",
+            insert: "bottom",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: false
+            }
+          });
         }
       })
       .catch((err) => {
@@ -218,8 +327,33 @@ export const Actions = () => {
           if (blogs.length === 1) {
             setBlogLength(0);
           }
+          store.addNotification({
+            title: "Delete Blog Success",
+            message: data.msg,
+            type: "success",
+            insert: "bottom",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: true
+            }
+          });
         } else {
-          alert(data.msg);
+          store.addNotification({
+            title: "Delete Blog Failed",
+            message: data.msg,
+            type: "warning",
+            insert: "bottom",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3000,
+              onScreen: false
+            }
+          });
         }
       })
       .catch((err) => {

@@ -41,11 +41,7 @@ const LoginForm = () => {
       </div>
       <div className="container">
         <div className="card"></div>
-        <div className="card">
-              <div className="error-container">
-                {/* Conditional rendering */}
-                <span>{code.message}</span>
-              </div>  
+        <div className="card"> 
           <h1 className="title">Login</h1>
           <form className="regForm" onSubmit={submitUser}>
             <div className="input-container">

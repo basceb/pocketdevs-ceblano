@@ -6,7 +6,7 @@ import '../pages/HeroSection.css';
 import homeVideo from "../media/video_2.mp4"
 
 export default function Blog() {
-    const {username, insertBlog, code, resetState} = useContext(AppContext)
+    const {username, insertBlog, resetState} = useContext(AppContext)
     const [entry, setEntry] = useState({});
     entry.username = username;
     const blogEntry = (e, field) => {
@@ -30,10 +30,6 @@ export default function Blog() {
             <div className="container blog-container">
                 <div className="card"></div>
                 <div className="card">
-                    <div className="error-container" onLoad={resetState}>
-                        {/* Conditional rendering */}
-                        <span>{code.message}</span>
-                    </div>  
                     <h1 className="title">Blog</h1>
                     <form className="writeForm" onSubmit={submitBlogPost}>
                         <div className="input-container">
