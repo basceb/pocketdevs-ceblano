@@ -11,6 +11,77 @@ video{
   filter: brightness(50%);
 }
 
+ tbody{
+  margin-bottom: 100px;
+}
+
+ table{
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1;
+}
+
+thead{
+  display: none;
+}
+
+ td, th {
+  text-align: center;
+  display: grid;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+} 
+
+.button-data{
+  display: flow-root;
+  margin: auto;
+}
+
+
+.title-data{
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+  font-weight: normal;
+  line-height: 48px;
+  font-family: serif;
+}
+
+.content-data{
+  font-size: 120%;
+  font-family: sans-serif;
+  transition: all 0.2s linear;
+  text-align: center;
+}
+
+.content-paragraph{
+  width: 80%;
+  line-height: 35px;
+  padding: 50px;
+  border: solid 3px #611F84;
+  border-radius: 10px;
+  color: black;
+}
+
+.btn-blog{
+  background-color: #611F84; /* Green */
+  border: solid 2px #ffffff;
+  border-radius: 20px;
+  color: white;
+  padding: 15px 32px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 20%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
 .design-container{
     height: 100vh;
     width: 55%;
@@ -122,8 +193,8 @@ video{
 
   .textarea-content{
     font-size: 20px;
-    width: 100%;
     height: 300px;
+    width: 100%;
     padding: 20px;
     resize: none;
   }

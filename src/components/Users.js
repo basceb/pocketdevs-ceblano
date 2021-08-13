@@ -5,14 +5,16 @@ import '../pages/HeroSection.css';
 import Blog from './Blog'
 import {Actions} from '../Actions'
 import Footer from '../pages/Footer'
+import './Users.css'
 
 function Users() {
   const data = Actions();
   return (
     <>  
-        <BlogPosts/>
+        <BlogPosts value={data}/>
         <Blog value={data}/>
         <Footer/>
+        
     </>
   );
 }
