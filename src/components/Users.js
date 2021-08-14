@@ -12,8 +12,8 @@ function Users() {
   return (
     <>  
         <BlogPosts value={data}/>
-        <Blog value={data}/>
-        <Footer/>  
+        <Blog classname="blog-comp" value={data}/>
+        <Footer/>
     </>
   );
 }
