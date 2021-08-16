@@ -1,28 +1,36 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect}  from 'react';
 import { AppContext } from '../Context';
 import './CompStyle.css'
 import formVideo from '../media/video_1.mp4'
 import schoolLogo from '../etherion.png'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const LoginForm = () => {
-  const { loginUser, code } = useContext(AppContext);
+  const history = useHistory();
+  const { loginUser, code, resetState} = useContext(AppContext);
   const [newUser, setNewUser] = useState({});
-  
-
   const addNewUser = (e, field) => {
     setNewUser({
       ...newUser, [field]: e.target.value
     }); 
   };
 
-  const submitUser = (e) => {
+  const submitUser = async (e) => {
     e.preventDefault();
-    loginUser(newUser)
+    loginUser(newUser);
     e.target.reset();
   };
+
+  useEffect(() => {
+      if(code.number === 1){
+        resetState();
+        history.push("/users");
+      }    
+  }, [code, history, resetState])
+
   //Comment here
-  return (
-    <div className="flex-container">
+  return ( 
+    <div className="flex-container" onLoad={resetState}>
       <div className="design-container">
         <video controls autoPlay loop muted>
           <source src={formVideo} type="video/mp4"></source>
@@ -33,11 +41,7 @@ const LoginForm = () => {
       </div>
       <div className="container">
         <div className="card"></div>
-        <div className="card">
-              <div className="error-container">
-                {/* Conditional rendering */}
-                <span>{code.message}</span>
-              </div>  
+        <div className="card"> 
           <h1 className="title">Login</h1>
           <form className="regForm" onSubmit={submitUser}>
             <div className="input-container">

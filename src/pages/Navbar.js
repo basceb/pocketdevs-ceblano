@@ -1,15 +1,43 @@
-import React, {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom'
+import React, {useState, useEffect, useContext} from 'react'
+import {Link, withRouter} from 'react-router-dom'
 import { Button } from '../pages/Button'
 import './Navbar.css';
 import schoolLogo from '../etherion.png'
+import { AppContext } from '../Context';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { store } from 'react-notifications-component'
 
 function Navbar() {
+    const history = useHistory();
+    const {isAuth, userHasAuth, username, setUsername} = useContext(AppContext);
     const [click, setClick] = useState(false); //Initial value to pause
     const [button, setButton] = useState(true);
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => {
         setClick(false)
+    };
+
+    const closeMobileMenuLogout = () => {
+        //Logout Notification
+        store.addNotification({
+            title: "You Logged Out",
+            message: "  ",
+            type: "info",
+            insert: "bottom",
+            container: "bottom-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 1000,
+              onScreen: false
+            }
+          });
+
+        userHasAuth(false);
+        localStorage.removeItem('user');
+        localStorage.setItem('isAuth', false);
+        history.push("/login");
+        setClick(false);
     };
 
     const showButton = () => {
@@ -20,6 +48,15 @@ function Navbar() {
         }
     };
 
+    function checkAuth(){
+        //Data Persists
+        if(localStorage.getItem("isAuth") && localStorage.getItem("user") != null){
+            userHasAuth(true);
+            //Set the username here
+            setUsername(localStorage.getItem("user"));
+        } 
+    }
+
     useEffect(() => {
         showButton();
     }, []);
@@ -28,7 +65,7 @@ function Navbar() {
 
     return (
         <>
-        <nav className="navbar">
+        <nav className="navbar" onLoad={checkAuth}>
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
                 <img src={schoolLogo} alt="Icon"/>
@@ -70,8 +107,34 @@ function Navbar() {
                         <Link to='/portal' className='nav-links' onClick={closeMobileMenu}>
                             Portal
                         </Link>
-                    </li>
-                    <li className="btn-mobile">
+                    </li>     
+                    {
+                    isAuth ? (
+                         <> 
+                        {/* MOBILE LOGOUT */}
+                        <li className="btn-mobile">
+                        <Link
+                            to='/login'
+                            className='nav-links-mobile'
+                            onClick={closeMobileMenuLogout}
+                        >
+                            Logout
+                        </Link>
+                        </li>  
+                        {/* LOGOUT BUTTON */}
+                        <li className='nav-links'> 
+                                {username}
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/login" onClick={closeMobileMenuLogout}>
+                                {button && <Button buttonSize="btn--medium" buttonStyle='btn--outline'>Logout</Button>}
+                            </Link>
+                        </li>
+                        </>
+                    ): ( 
+                        <>
+                        {/* MOBILE LOGIN */}
+                        <li className="btn-mobile">
                         <Link
                             to='/login'
                             className='nav-links-mobile'
@@ -79,24 +142,27 @@ function Navbar() {
                         >
                             Login
                         </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to="/login" onClick={closeMobileMenu}>
-                     {button && <Button buttonSize="btn--medium" buttonStyle='btn--outline'>Login</Button>}
+                        </li>  
+                        {/* LOGIN BUTTON */}
+                        <li className="nav-item">
+                            <Link to="/login" onClick={closeMobileMenu}>
+                        {button && <Button buttonSize="btn--medium" buttonStyle='btn--outline'>Login</Button>}
+                            </Link>
+                        </li>
+
+                        {/* REGISTER BUTTON */}
+                        <li className="nav-item">
+                        <Link to="/register" onClick={closeMobileMenu}>
+                        {button && <Button buttonSize="btn--medium" buttonStyle='btn--outline'>Register</Button>}
                         </Link>
-                    </li>
-                    <li className="nav-item">
-                    <Link to="/register" onClick={closeMobileMenu}>
-                     {button && <Button buttonSize="btn--medium" buttonStyle='btn--outline'>Register</Button>}
-                     </Link>
-                    </li>           
+                        </li>      
+                        </>
+                    )}                               
                 </ul>
-                    
-                    {/* {button && <Button buttonSize="btn--medium" buttonStyle='btn--outline'>Register</Button>} */}
                 </div>
         </nav>
         </>
     )
 }
 
-export default Navbar
+export default withRouter(Navbar)
